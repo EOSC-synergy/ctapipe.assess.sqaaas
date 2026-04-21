@@ -1,0 +1,72 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: feature/pynblint_fix
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/cta-observatory/ctapipe:
+      branch: main
+      repo: https://github.com/cta-observatory/ctapipe
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/cta-observatory/ctapipe git:
+        commands:
+        - /usr/bin/env sh .sqa/script.foggy-orange-dane.sh
+        container: qc.acc_nerdy-indigo-tapir
+  QC.Doc:
+    repos:
+      github.com/cta-observatory/ctapipe find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.wheezy-tangerine-weasel.sh
+        container: qc.doc_sleepy-jade-caiman
+      github.com/cta-observatory/ctapipe git:
+        commands:
+        - /usr/bin/env sh .sqa/script.skanky-crimson-capybara.sh
+        container: qc.doc_pasty-dandelion-budgerigar
+      github.com/cta-observatory/ctapipe markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.frumpy-cardinal-dog.sh
+        container: qc.doc_crappy-cobalt-hippopotamus
+      github.com/cta-observatory/ctapipe restructuredtext-lint:
+        commands:
+        - /usr/bin/env sh .sqa/script.scummy-cinnabar-husky.sh
+        container: qc.doc_craggy-orchid-opossum
+  QC.Lic:
+    repos:
+      github.com/cta-observatory/ctapipe licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.skimpy-white-mist.sh
+        container: qc.lic_homey-white-magpie
+  QC.Sec:
+    repos:
+      github.com/cta-observatory/ctapipe bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.woozy-russet-kangaroo.sh
+        container: qc.sec_clammy-salmon-millipede
+  QC.Sty:
+    repos:
+      github.com/cta-observatory/ctapipe flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.blurry-salmon-flounder.sh
+        container: qc.sty_gamy-asparagus-rhinoceros
+      github.com/cta-observatory/ctapipe jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.grumpy-thistle-bloodhound.sh
+        container: qc.sty_seedy-orange-boar
+  QC.Uni:
+    repos:
+      github.com/cta-observatory/ctapipe pytest:
+        commands:
+        - /usr/bin/env sh .sqa/script.sleepy-goldenrod-opossum.sh
+        container: qc.uni_blurry-ochre-fly
+  QC.Ver:
+    repos:
+      github.com/cta-observatory/ctapipe get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.lousy-linen-beetle.sh
+        container: qc.ver_chewy-cinnabar-wolverine
+timeout: 5400
